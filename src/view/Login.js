@@ -1,10 +1,14 @@
 import React, { Component, useState} from 'react'
 import { useNavigate } from 'react-router';
+import { login } from '../features/login/loginSlice'
+import { useDispatch } from 'react-redux'
 
-export default function Login( props) {
+
+export default function Login( ) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [msg, setmsg] = useState("login to continue")
+    const dispatch = useDispatch()
     let navigate= useNavigate();
     
     const handleSubmit=(e)=>{
@@ -12,8 +16,8 @@ export default function Login( props) {
         if(username==="xyz" && password ==="xyz"){
            
             console.log("correct password");
-              props.setValid(true);
-             navigate("../",{replace:true});
+            dispatch(login());
+            navigate("../",{replace:true});
         
         }
         else{

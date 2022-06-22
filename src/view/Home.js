@@ -1,13 +1,17 @@
 import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router'
 import Item from "../components/Item"
-export default function Home(props) {
+import loginSlice, { logout } from '../features/login/loginSlice'
+import { useSelector,useDispatch } from 'react-redux'
+import store from '../app/store'
+
+export default function Home() {
 
   let navigate=useNavigate();
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
-
+  const dispatch = useDispatch()
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products/")
@@ -23,8 +27,9 @@ export default function Home(props) {
       }
     )
   }, [])
-  
-  if(props.checkValid===false){
+  const isValid= useSelector(state=>state.login)
+  // console.log(isValid.isAuthorized);
+  if(!isValid.isAuthorized){
     return (
       <div> 
         <h3>you need to login first!</h3>
@@ -50,7 +55,7 @@ export default function Home(props) {
     return(
       <div>
         <ul>{listItems}</ul>
-        <button onClick={()=>props.setValid(false)}>log out</button>
+        <button onClick={()=>dispatch(logout())}>log out</button>
       </div>
     );
   }  

@@ -1,5 +1,7 @@
 import React, {component, useState} from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+import store from './app/store'
 import {
   BrowserRouter,
   Routes,
@@ -9,7 +11,6 @@ import {
 import Home from "./view/Home";
 import Login from "./view/Login";
 
-
  function App() {
   const [isAuthorized, setAuthorized] = useState(false);
 
@@ -18,8 +19,8 @@ import Login from "./view/Login";
       
 
       <Routes>
-        <Route  path="/login" element={<Login checkValid={isAuthorized} setValid={setAuthorized}/>} /> 
-        <Route  path="/" element={<Home checkValid={isAuthorized} setValid={setAuthorized}/>} /> 
+        <Route  path="/login" element={<Login />} /> 
+        <Route  path="/" element={<Home />} /> 
       </Routes>
     
     </div>
@@ -30,7 +31,10 @@ import Login from "./view/Login";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
- <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
+ 
   </BrowserRouter>
 );
 
