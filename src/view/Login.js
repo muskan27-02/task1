@@ -32,7 +32,7 @@ export default function Login( props) {
                 <input value= {username} type="text" onChange={(e)=>setUsername(e.target.value)}/>
             </label>
             <label> password:
-                <input value= {password} type ="text"  onChange={(e)=>setPassword(e.target.value)}/>
+                <input value= {password} type ="password"  onChange={(e)=>setPassword(e.target.value)}/>
             </label>
                 <input type="submit" value="submit" />
         </form>
